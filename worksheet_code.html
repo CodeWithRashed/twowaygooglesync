@@ -1,0 +1,24 @@
+function syncSheets() {
+    // Get the source and destination spreadsheets
+  var destSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sourceSpreadsheet = SpreadsheetApp.openById("insert mainsheet ID here");
+  
+  // Get the source and destination sheets
+  var destSheet = destSpreadsheet.getSheetByName("Sheet1");
+  var sourceSheet = sourceSpreadsheet.getSheetByName("Sheet1");
+  
+  // Get the data from the destination sheet
+  var destData = destSheet.getDataRange().getValues();
+  
+  // Get the data from the source sheet
+  var sourceData = sourceSheet.getDataRange().getValues();
+  
+  // Compare the destination data and the source data
+  for (var i = 0; i < destData.length; i++) {
+    for (var j = 0; j < destData[0].length; j++) {
+      if (destData[i][j] != sourceData[i][j]) {
+        sourceSheet.getRange(i + 1, j + 1).setValue(destData[i][j]);
+      }
+    }
+  }
+}
